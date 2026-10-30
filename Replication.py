@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from collections import Counter, defaultdict
 
-
 # function from: https://www.iditect.com/faq/python/how-to-round-a-number-to-significant-figures-in-python.html
 def round_to_sf(number, sf):
     # Convert the number to a string with the desired number of significant figures
@@ -11,13 +10,12 @@ def round_to_sf(number, sf):
     rounded_number = float(formatted_number)
     return rounded_number
 
+all_results = {1:[],2:[],3:[],4:[]}
+years = 1000
+seeds = 50
 
-years = 100
-for year in range(years):
-    np.random.seed(year)
-
-
-
+for seed in range(seeds):
+    np.random.seed(seed)
     rng = np.random.default_rng()
     # 2 cuts per 1000 miles (1609km) per year - parameterised into per hour for cut statistic
     cut_statistic =  (2/1609.344)/8760
@@ -25,7 +23,7 @@ for year in range(years):
     network_total_fibre = 25200  
 
     # incidents of cut fibre
-    lam, size = round_to_sf(network_total_fibre*cut_statistic,3), 8760*1000
+    lam, size = round_to_sf(network_total_fibre*cut_statistic,3), 8760*years
     incidents = rng.poisson(lam=lam, size=size)
 
     #print(s)
@@ -74,3 +72,7 @@ for year in range(years):
 
     for item in result:
         print(item, len(result[item]))
+        all_results[item].append(len(result[item]))
+
+print()
+print(all_results)
