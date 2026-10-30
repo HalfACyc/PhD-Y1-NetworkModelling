@@ -1,4 +1,7 @@
 import numpy as np
+import pandas as pd
+from collections import Counter, defaultdict
+
 
 rng = np.random.default_rng()
 lam, size = 0.00604, 8760
@@ -40,5 +43,24 @@ for i in range(len(repaired_time)):
     all_down_links += [num for num in range(fault_instance[1][i], repaired_time[i] + 1)]
 print(all_down_links)
 
+all_down_links = np.array(all_down_links)
+
+
+result = defaultdict(list)
+for num, count in Counter(all_down_links).items():
+    result[count].append(num)
+
+result = dict(result)
+print(result)
+
+# print()
+# print()
+
+# unique1, counts1 = np.unique(all_down_links, return_counts=True)
+# new = dict(zip(unique1, counts1))
+
+# print(new)
+# df = pd.DataFrame(list(new.items()), columns=['hour', 'links_down'])
+# print(df)
 
 
