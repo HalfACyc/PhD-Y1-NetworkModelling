@@ -68,7 +68,7 @@ for seed in range(seeds):
 
 print()
 print(all_results)
-file_name = topology + '-'+ str(years)+'-years-'+str(seeds)+'-seeds-amp.pkl'
+file_name = topology + '-'+ str(years)+'-years-'+str(seeds)+'-seeds.pkl'
 results_file = open(file_name, 'wb')
 pickle.dump(all_results, results_file)
 results_file.close()
