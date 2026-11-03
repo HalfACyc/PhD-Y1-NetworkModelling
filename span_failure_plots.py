@@ -191,9 +191,9 @@ def MST_Rep(graph):
     print(list(G.edges))
 
     nx.draw(T, pos1, with_labels=True, node_color='#E0B9AF')
-    nx.draw_networkx_edges(G, pos1,connectionstyle="arc3,rad=0.4", arrows=True,
+    nx.draw_networkx_edges(G, pos1,connectionstyle="arc3,rad=0.45", arrows=True,
                            edge_color="#3EA71B",
                            style='dashed')
     plt.show()
 
-MST_Rep(2)
+MST_Rep(1)
