@@ -11,7 +11,7 @@ def round_to_sf(number, sf):
     rounded_number = float(formatted_number)
     return rounded_number
 
-all_results = {1:[],2:[],3:[],4:[]}
+all_results = {1:[],2:[],3:[],4:[],5:[]}
 years = 1000
 seeds = 50
 # 2 cuts per 1000 miles (1609km) per year - parameterised into per hour for cut statistic
@@ -26,9 +26,11 @@ for seed in range(seeds):
 
     # incidents of cut fibre
     lam, size = round_to_sf(network_total_fibre*cut_statistic,3), 8760*years
-    incidents = rng.poisson(lam=lam, size=size)
+    cut_incidents = rng.poisson(lam=lam, size=size)
 
-    unique, counts = np.unique(incidents, return_counts=True)
+    lam2, size2 = round_to_sf()
+
+    unique, counts = np.unique(cut_incidents, return_counts=True)
     occurrences = dict(zip(unique, counts))
     print('occurrences',occurrences)
 
@@ -37,7 +39,7 @@ for seed in range(seeds):
     # indexes of the fault are stored as the value in this dictionary
     for item in occurrences:
         if item != 0:
-            fault_instance[item] = np.where(incidents == item)[0].tolist()
+            fault_instance[item] = np.where(cut_incidents == item)[0].tolist()
 
     # Every hour that a link is down (per link) is written to list 'all_down_links'
     # Repeated hours indicate multiple links down at the same instance.
@@ -66,7 +68,7 @@ for seed in range(seeds):
 
 print()
 print(all_results)
-file_name = topology + '-'+ str(years)+'-years-'+str(seeds)+'-seeds.pkl'
+file_name = topology + '-'+ str(years)+'-years-'+str(seeds)+'-seeds-amp.pkl'
 results_file = open(file_name, 'wb')
 pickle.dump(all_results, results_file)
 results_file.close()
