@@ -247,6 +247,6 @@ def graph_weightify(graph_name):
         G.edges[edge]['weight'] = link
     return(G, top_name)
 
-G = NSFNET()
-# G = BT_core()
+# G = NSFNET()
+G = BT_core()
 

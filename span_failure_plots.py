@@ -106,17 +106,17 @@ def betweenness_plots(G, pos, h_or_v, df):
     plt.show()
 
 
-# x = 1
-# if x == 1:
-#     G, pos = NSFNET()
-#     topology = 'NSFNET'
-#     orientation = 'horizontal'
-# else:
-#     G, pos = BT_core()
-#     topology = 'BT Core'
-#     orientation = 'vertical'
+x = 2
+if x == 1:
+    G, pos = NSFNET()
+    topology = 'NSFNET'
+    orientation = 'horizontal'
+else:
+    G, pos = BT_core()
+    topology = 'BT Core'
+    orientation = 'vertical'
 
-# df = df_failure_prob_bw(G)
+df = df_failure_prob_bw(G)
 # bw_failure_prob_plot(G, df, topology)
 # print(df)
 
@@ -178,22 +178,29 @@ def MST_Rep(graph):
         #G, pos = BT_core()
 
     T = nx.minimum_spanning_tree(G)
-
-    print(list(G.edges))
-    print()
     print(list(T.edges))
     print()
-
-    for edge in list(T.edges):
-        # print(edge)
-        G.remove_edge(edge[0],edge[1])
-
+    print(list(G.edges))
+    print()
+    print(G.remove_edges_from(list(T.edges)))
     print(list(G.edges))
 
-    nx.draw(T, pos1, with_labels=True, node_color='#E0B9AF')
-    nx.draw_networkx_edges(G, pos1,connectionstyle="arc3,rad=0.45", arrows=True,
-                           edge_color="#3EA71B",
-                           style='dashed')
-    plt.show()
+    for edge in list(T.edges):
+        T.remove_edge(edge)
+        G.add_edge(edge)
+
+    # for edge in list(T.edges):
+    #     print(edge)
+    #     G.remove_edge(edge[0],edge[1])
+    #     T.remove_edge(edge[0],edge[1])
+    # print()
+
+
+
+        nx.draw(T, pos1, with_labels=True, node_color='#E0B9AF')
+        nx.draw_networkx_edges(G, pos1,connectionstyle="arc3,rad=0.45", arrows=True,
+                            edge_color="#3EA71B",
+                            style='dashed')
+    # plt.show()
 
 MST_Rep(1)
